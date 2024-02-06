@@ -1,16 +1,11 @@
 from flask import *
 import requests
-' تم تصليح'
-import requests,time
-
-
+from user
 app = Flask(__name__)
 @app.route('/Qredes/email=<email>')
-
-def checkaolav(email):
-        if '@' in email:email=email.split('@')[0]
-        tm1=str(time.time()).split('.')[0]
-        headers={
+def email(email):
+  url = 'https://www.instagram.com/api/v1/web/accounts/check_email/'
+  headers={
 	
 		 'Host': 'www.instagram.com',
 	
@@ -42,7 +37,7 @@ def checkaolav(email):
 	
 		 'x-instagram-ajax': '1010142781',
 	
-		 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
+		 'user-agent': str(generate_user_agent()),
 	
 		 'viewport-width': '360',
 	
@@ -77,13 +72,16 @@ def checkaolav(email):
 		 'cookie': 'ig_did=B2B00EA7-37E3-45D1-B806-DA1FFFB7D82D',
 	
 }
-        data = {
+  data = {
 	'email':f'{email}'
-}
+  }
+  req = requests.post(url,headers=headers,data=data).text
+  if 'email_is_taken' in req:
+    return {'status':'email is taken','email':email+'@gmail.com'}
+  elif 'email_is_available' in req:
+    return {'status':'email is available','email':email+'@gmail.com'}
 
-
-
-        response = requests.post('https://www.instagram.com/api/v1/web/accounts/check_email/',  headers=headers, data=data).text
-        if '"email_is_taken",' in response:return {'s':'good','by':'@UUYFU','email':email+'@gmail.com'}
-        else:return {'s':'bad','by':'@UUYFU','email':email+'@gmail.com'}
-            checkaolav(email)
+  else:
+    return {'status':'error', 'email':email+'@gmail.com'}
+    email(email)
+	
