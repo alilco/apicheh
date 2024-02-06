@@ -84,4 +84,3 @@ def email(email):
     return 'True'
   else:
     return 'False'
-    email(email)
