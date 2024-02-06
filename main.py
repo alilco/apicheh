@@ -1,6 +1,5 @@
 from flask import *
 import requests
-from user
 app = Flask(__name__)
 @app.route('/Qredes/email=<email>')
 def email(email):
