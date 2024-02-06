@@ -3,6 +3,7 @@ import requests
 app = Flask(__name__)
 @app.route('/Qredes/email=<email>')
 def email(email):
+  email = email
   url = 'https://www.instagram.com/api/v1/web/accounts/check_email/'
   headers={
 	
@@ -81,4 +82,3 @@ def email(email):
   else:
     return {'status':'error', 'email':email+'@gmail.com'}
     email(email)
-	
