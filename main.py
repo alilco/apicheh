@@ -1,11 +1,15 @@
 from flask import *
 import requests
+
+
 app = Flask(__name__)
-@app.route('/Qredes/email=<email>')
+
+@app.route('/api/email=<email>')
+
 def email(email):
-    email = email
-    url = 'https://www.instagram.com/api/v1/web/accounts/check_email/'
-    headers={
+  email = email
+  url = 'https://www.instagram.com/api/v1/web/accounts/check_email/'
+  headers={
 	
 		 'Host': 'www.instagram.com',
 	
@@ -72,13 +76,12 @@ def email(email):
 		 'cookie': 'ig_did=B2B00EA7-37E3-45D1-B806-DA1FFFB7D82D',
 	
 }
-    data = {
+  data = {
 	'email':f'{email}'
   }
-    req = requests.post(url,headers=headers,data=data).text
-    if '"email_is_taken",' in req:
-    	return {'status':'email is taken','email':email+'@gmail.com'}
-
-    else:
-    	return {'status':'error', 'email':email+'@gmail.com'}
-    	email(email)
+  req = requests.post(url,headers=headers,data=data).text
+  if '"email_is_taken",' in req:		
+    return 'True'
+  else:
+    return 'False'
+    email(email)
