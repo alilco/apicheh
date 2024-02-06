@@ -2,7 +2,6 @@ from flask import *
 import requests
 ' تم تصليح'
 import requests,time
-from user_agent import generate_user_agen
 
 
 app = Flask(__name__)
@@ -43,7 +42,7 @@ def checkaolav(email):
 	
 		 'x-instagram-ajax': '1010142781',
 	
-		 'user-agent': str(generate_user_agent()),
+		 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
 	
 		 'viewport-width': '360',
 	
