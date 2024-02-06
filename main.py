@@ -2,6 +2,7 @@ from flask import *
 import requests
 ' تم تصليح'
 import requests,time
+from user_agent import generate_user_agen
 
 
 app = Flask(__name__)
