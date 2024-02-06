@@ -85,4 +85,5 @@ def checkaolav(email):
 
         response = requests.post('https://www.instagram.com/api/v1/web/accounts/check_email/',  headers=headers, data=data).text
         if '"email_is_taken",' in response:return {'s':'good','by':'@UUYFU','email':email+'@gmail.com'}
-        else:checkaolav(email)
+        else:return {'s':'bad','by':'@UUYFU','email':email+'@gmail.com'}
+            checkaolav(email)
