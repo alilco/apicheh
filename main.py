@@ -75,10 +75,8 @@ def email(email):
 	'email':f'{email}'
   }
   req = requests.post(url,headers=headers,data=data).text
-  if 'email_is_taken' in req:
+  if '"email_is_taken",' in req:		
     return {'status':'email is taken','email':email+'@gmail.com'}
-  elif 'email_is_available' in req:
-    return {'status':'email is available','email':email+'@gmail.com'}
 
   else:
     return {'status':'error', 'email':email+'@gmail.com'}
