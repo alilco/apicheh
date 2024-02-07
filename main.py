@@ -1,5 +1,6 @@
 from flask import *
-import requests
+import requests;from user_agent import generate_user_agent
+useragnet=str(generate_user_agent())
 app = Flask(__name__)
 @app.route('/api/v1/info/instagram/email=<email>')
 def info(email):
