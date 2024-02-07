@@ -81,5 +81,4 @@ def info(email):
         return {'status':'True','email':email,'email_is_taken':'True'}
     else:
         return {'status':'False','email':email,'email_is_taken':'False'}
-app.run(host='0.0.0.0', port=8080)
     
