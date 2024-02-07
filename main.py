@@ -81,4 +81,5 @@ def info(email):
         return {'status':'True','email':email,'email_is_taken':'True'}
     else:
         return {'status':'False','email':email,'email_is_taken':'False'}
+	info(email)
 	
