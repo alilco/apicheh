@@ -38,7 +38,7 @@ def info(email):
 
      'x-instagram-ajax': '1010142781',
 
-     'user-agent': 'Mozilla/5.0 (Linux; Android 11; SM-A205F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.40 Mobile Safari/537.36',
+     'user-agent': useragnet,
 
      'viewport-width': '360',
 
