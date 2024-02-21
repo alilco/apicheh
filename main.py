@@ -3,9 +3,9 @@ from flask import *
 
 app = Flask(__name__)
 
-@app.route('/Fox/email=<email>')
+@app.route('/api/info/{email}')
 def info(email):
-    email = email
+    email1 = email
     try:
         url = 'https://www.instagram.com/api/v1/web/accounts/check_email/'
         headers = {
@@ -76,12 +76,12 @@ def info(email):
 	
 	}
         data = {
-            'email':f'{email}@gmail.com'
+            'email':f'{email1}@gmail.com'
         }
         response = requests.post(url, headers=headers, data=data).text
         if '"email_is_taken"' in response:
             return '{"email_is_taken",}'
         else:
-            info(email)
+            return '{"False":"email"}'
     except IndexError:
-        return '{"False":"email"}'
+        info(email)
