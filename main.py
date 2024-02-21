@@ -79,9 +79,9 @@ def info(email):
             'email':f'{email}@gmail.com'
         }
         response = requests.post(url, headers=headers, data=data).text
-        if '"email_is_taken",' in response:
-            
+        if '"email_is_taken"' in response:
             return '{"email_is_taken",}'
         else:
-            return '{"False":"email"}'
-    except IndexError:info(email)
+            info(email)
+    except IndexError:
+        return '{"False":"email"}'
