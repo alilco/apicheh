@@ -3,7 +3,7 @@ from flask import *
 
 app = Flask(__name__)
 
-@app.route('/api/info/{email}')
+@app.route('/api/info=<email>')
 def info(email):
     email1 = email
     try:
