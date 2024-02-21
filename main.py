@@ -1,4 +1,5 @@
 import requests
+from user_agent import generate_user_agent
 from flask import *
 
 app = Flask(__name__)
@@ -40,7 +41,7 @@ def info(email):
 	
 		 'x-instagram-ajax': '1010142781',
 	
-		 'user-agent': 'Mozilla/5.0 (Linux; Android 10; Lenovo K12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Mobile Safari/537.36',
+		 'user-agent': generate_user_agent(),
 	
 		 'viewport-width': '360',
 	
