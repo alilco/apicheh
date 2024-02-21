@@ -1,5 +1,4 @@
 import requests
-
 from flask import *
 
 app = Flask(__name__)
@@ -84,9 +83,5 @@ def info(email):
             
             return '{"email_is_taken",}'
         else:
-            return 'BY Fox'
-    except IndexError:
-        return '{"False":"email"}'
-
-if __name__ == "__main__":
-    app.run()
+            return '{"False":"email"}'
+    except IndexError:info(email)
