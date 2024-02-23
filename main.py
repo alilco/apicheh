@@ -3,7 +3,7 @@ from flask import *
 
 app = Flask(__name__)
 
-@app.route('/api/info=<email>')
+@app.route('/api/info/email=<email>')
 def info(email):
     email1 = email
     try:
@@ -41,7 +41,8 @@ def info(email):
     'accept-language': 'ar-IQ,ar;q=0.9,en-US;q=0.8,en;q=0.7',
     'cookie': 'csrftoken=PWlSM95SKa80_wY819MwNH;ps_l=0;ps_n=0;ig_did=0A2B0FB8-243D-4F72-9781-1E456CB34DC8;ig_nrcb=1;dpr=1.75;_js_ig_did=0A2B0FB8-243D-4F72-9781-1E456CB34DC8;_js_datr=doHYZdH9fk1pr9niSosv4FFl;mid=ZdiBdgABAAECWGqUQvAJf2vOsjxC',
         }
-        data = f'enc_password=%23PWD_INSTAGRAM_BROWSER%3A10%3A1708687786%3AAWdQAA5dXzWQAlVLYNbJZrI8%2FJcAYp1RZbsMXgS9GbYb7RBTnSDKsP12sToWYUeDQn56NuWmG2N%2BOyDdE51YdokpSN2tJl8mK80MmSWdDbdIMXW1Hv%2FB3XzvejomEPng%2B%2Buof2rARLuB85W2yiY%3D&optIntoOneTap=false&queryParams=%7B%22hl%22%3A%22ar%22%7D&trustedDeviceRecords=%7B%7D&username={email}'
+        data = (f'enc_password=%23PWD_INSTAGRAM_BROWSER%3A10%3A1708687786%3AAWdQAA5dXzWQAlVLYNbJZrI8%2FJcAYp1RZbsMXgS9GbYb7RBTnSDKsP12sToWYUeDQn56NuWmG2N%2BOyDdE51YdokpSN2tJl8mK80MmSWdDbdIMXW1Hv%2FB3XzvejomEPng%2B%2Buof2rARLuB85W2yiY%3D&optIntoOneTap=false&queryParams=%7B%22hl%22%3A%22ar%22%7D&trustedDeviceRecords=%7B%7D&username={email}'
+        )
         req = requests.post(url, headers=headers, data=data).text
         if '"user":true' in req:
             return '{"user":true}'
