@@ -1,57 +1,43 @@
 import requests
 from flask import *
+from time import time
+from hashlib import md5
+from fastapi.responses import JSONResponse
 
 app = Flask(__name__)
-
+csrftoken = md5(str(time()).encode()).hexdigest()
 @app.route('/api/info/email=<email>')
 def info(email):
     email1 = email
     try:
-        url = 'https://www.instagram.com/api/v1/web/accounts/login/ajax/?hl=ar'
+        url = 'https://www.instagram.com/api/v1/web/accounts/check_email/'
         headers = {
-    'Host': 'www.instagram.com',
-    'content-length': '322',
-    'pragma': 'no-cache',
-    'cache-control': 'no-cache',
-    'sec-ch-ua': '"Not A(Brand";v="99", "Android WebView";v="121", "Chromium";v="121"',
-    'x-ig-www-claim': '0',
-    'sec-ch-ua-platform-version': '"10.0.0"',
-    'x-requested-with': 'XMLHttpRequest',
-    'x-web-device-id': '0A2B0FB8-243D-4F72-9781-1E456CB34DC8',
-    'dpr': '1.75',
-    'sec-ch-ua-full-version-list': '"Not A(Brand";v="99.0.0.0", "Android WebView";v="121.0.6167.178", "Chromium";v="121.0.6167.178"',
-    'x-csrftoken': 'PWlSM95SKa80_wY819MwNH',
-    'sec-ch-ua-model': '"Lenovo K12"',
-    'sec-ch-ua-platform': '"Android"',
-    'x-ig-app-id': '1217981644879628',
-    'sec-ch-prefers-color-scheme': 'light',
-    'sec-ch-ua-mobile': '?1',
-    'x-instagram-ajax': '1011606959',
-    'user-agent': 'Mozilla/5.0 (Linux; Android 10; Lenovo K12 Build/QOGS30.569-83-18; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/121.0.6167.178 Mobile Safari/537.36',
-    'viewport-width': '412',
-    'content-type': 'application/x-www-form-urlencoded',
-    'accept': '*/*',
-    'x-asbd-id': '129477',
-    'origin': 'https://www.instagram.com',
-    'sec-fetch-site': 'same-origin',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-dest': 'empty',
-    'referer': 'https://www.instagram.com/accounts/login/?hl=ar',
-    'accept-encoding': 'gzip, deflate, br',
-    'accept-language': 'ar-IQ,ar;q=0.9,en-US;q=0.8,en;q=0.7',
-    'cookie': 'csrftoken=PWlSM95SKa80_wY819MwNH;ps_l=0;ps_n=0;ig_did=0A2B0FB8-243D-4F72-9781-1E456CB34DC8;ig_nrcb=1;dpr=1.75;_js_ig_did=0A2B0FB8-243D-4F72-9781-1E456CB34DC8;_js_datr=doHYZdH9fk1pr9niSosv4FFl;mid=ZdiBdgABAAECWGqUQvAJf2vOsjxC'
-        }
+        'accept': '*/*',
+        'accept-language': 'en-US,en;q=0.9',
+        'content-type': 'application/x-www-form-urlencoded',
+        'origin': 'https://www.instagram.com',
+        'referer': 'https://www.instagram.com/accounts/signup/email/',
+        'user-agent': generate_user_agent(),
+        'x-csrftoken': csrftoken
+    }
         data = {
-'enc_password': '#PWD_INSTAGRAM_BROWSER:10:1708701681:AWdQABJnRvXJxKNEUj0Ai5IFC6aBGGmXqGdvFp6gYsX2WcpO9DAVVulsb5Mn4mzqIG5eDBKpNp8q5LOTp1BJhiO5PWqGVhtbH16y3bRAWxGwDIdq3z68HZHREOKVlRS4EkAxg67HixNW7g==',
-'optIntoOneTap': 'false',
-'queryParams': '{"hl":"ar"}',
-'trustedDeviceRecords': '{}',
-'username': f'{email}'
-        }
-        req = requests.post(url, headers=headers, data=data).text
-        if '"user":true' in req:
-            return '{"user":true}'
+        'email': email,
+    }
+        response = requests.post('https://www.instagram.com/api/v1/web/accounts/check_email/', headers=headers, data=data)
+        if 'email_is_taken' in str(response.text):
+            return '{"email_is_taken",}'
+            data1 ={
+            'email': email,
+            'email': 'email_is_taken',
+            'BY': '@UUYFU'
+    }
+            return JSONResponse(content=data1)
         else:
-            return '{"False":"email"}'
+            data2 ={
+            'email': email,
+            'email': ' bad email',
+            'BY': '@UUYFU'
+    }
+            return JSONResponse(content=data2)
     except IndexError:
         info(email)
