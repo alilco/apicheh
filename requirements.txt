@@ -2,3 +2,6 @@ flask
 requests
 gunicorn
 user-agent==0.1.10
+hashlib
+fastapi
+time
