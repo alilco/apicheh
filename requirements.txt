@@ -1,2 +1,14 @@
 Flask
 gunicorn
+chinesename
+names
+colorama
+getuseragent
+beautifulsoup4
+bs4
+requests
+user-agent
+uvicorn
+fastapi
+indian-names
+vn-fullname-generator
