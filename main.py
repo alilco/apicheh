@@ -6,7 +6,7 @@ def get():
         u = 'https://accounts.google.com/lifecycle/flows/signup?flowName=GlifWebSignIn&amp;flowEntry=SignUp&amp;dsh=S-2080027205%3A1708756695873425&amp;theme=glif'
         h = {
         'Host': 'accounts.google.com',
-        'Cookie': f'__Host-GAPS=1:bJF6fwl6pi8dpEBJYhlgj-LilfRh9A:3QzueA6kta8qieh3;',
+        'Cookie': '__Host-GAPS=1:bJF6fwl6pi8dpEBJYhlgj-LilfRh9A:3QzueA6kta8qieh3;',
         'Sec-Ch-Ua': '"Chromium";v="121", "Not A(Brand";v="99"',
         'Sec-Ch-Ua-Mobile': '?0',
         'Sec-Ch-Ua-Full-Version': '""',
