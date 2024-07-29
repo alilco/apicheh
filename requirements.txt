@@ -1,13 +1,3 @@
-chinesename
-names
-colorama==0.4.6
-getuseragent==0.0.7
-beautifulsoup4==4.12.3
-bs4==0.0.2
-requests==2.31.0
-user-agent==0.1.10
-uvicorn==0.29.0
-gunicorn==21.2.0
-Flask==3.0.2
-indian-names==0.3
-vn-fullname-generator
+requests
+gunicorn
+Flask
