@@ -10,7 +10,7 @@
 import requests
 from flask import Flask,jsonify
 app = Flask(__name__)
-@app.route("/")
+@app.route('/')
 def gmail():
     try:
         host1='1:bJF6fwl6pi8dpEBJYhlgj-LilfRh9A:3QzueA6kta8qieh3'
@@ -21,7 +21,7 @@ def gmail():
         at=AFRITON.split('"SNlM0e":"')[1].split('",')[0]
         
         tl=AFRITON.split('?flowName%3DGlifWebSignIn%26TL%3D')[2].split("',")[0]
-        return {"at": at,"tl":tl}
+        return jsonify({"at":at,"tll":tl})
         host=requests.get('https://accounts.google.com/v3/signin/_/AccountsSignInUi/data/batchexecute?rpcids=V1UmUe&source-path=%2Fv3%2Fsignin%2Fidentifier&f.sid=9040880579683811499&bl=boq_identityfrontendauthuiserver_20240211.08_p0&hl=en-US&_reqid=343345&rt=c',
                                             headers={
 'Cookie': f'__Host-GAPS=1:Z7bv_bm_SFYF0xEj3AP2BTXVHdwr4w:b7ZMMlLrGhrrvUGa',
