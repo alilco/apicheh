@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SparkCalc</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff6ec4" />
+  <link rel="icon" href="icon.png">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(270deg, #ff6ec4, #7873f5, #66ffff);
+      background-size: 600% 600%;
+      animation: gradientMove 10s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .logo {
+      font-size: 2rem;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .time {
+      color: white;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .calculator {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      padding: 20px;
+      backdrop-filter: blur(15px);
+      width: 300px;
+    }
+    .display {
+      background: white;
+      border-radius: 10px;
+      text-align: right;
+      padding: 15px;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+      min-height: 40px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      padding: 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.1s ease, background 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+      background: #f0f0f0;
+    }
+    .dark-mode {
+      background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+    }
+    .toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-mode" onclick="toggleMode()">Toggle Mode</button>
+  <div class="logo fade-in">
+    <span>✨</span>
+    SparkCalc
+  </div>
+  <div class="time fade-in" id="datetime"></div>
+  <div class="calculator fade-in">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('/')">÷</button>
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('*')">×</button>
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('-')">−</button>
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="press('+')">+</button>
+      <button onclick="clearDisplay()" style="grid-column: span 4; background: #ff6ec4; color: white;">Clear</button>
+    </div>
+  </div><audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+  <script>
+    let display = document.getElementById('display');
+    let current = '';
+    const sound = document.getElementById('clickSound');
+
+    function press(val) {
+      playSound();
+      if (display.innerText === '0' || display.innerText === 'Error') {
+        current = val;
+      } else {
+        current += val;
+      }
+      display.innerText = current;
+    }
+
+    function calculate() {
+      playSound();
+      try {
+        current = eval(current).toString();
+        display.innerText = current;
+      } catch {
+        display.innerText = 'Error';
+      }
+    }
+
+    function clearDisplay() {
+      playSound();
+      current = '';
+      display.innerText = '0';
+    }
+
+    function playSound() {
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString();
+      const dateString = now.toLocaleDateString();
+      document.getElementById('datetime').innerText = `${dateString} - ${timeString}`;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('Service Worker registered:', reg))
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script></body>
+</html>
